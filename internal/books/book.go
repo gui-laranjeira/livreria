@@ -1,7 +1,7 @@
 package books
 
 import (
-	"github.com/gui-laranjeira/livreria/internal/publishers/entity"
+	"github.com/gui-laranjeira/livreria/internal/publishers"
 	"time"
 )
 
@@ -45,7 +45,7 @@ type BookServicePort interface {
 	DeleteByID(id int) error
 }
 
-func NewBookFactory(title string, publisher *entity.Publisher, pages int, language string, edition int, year int, isbn string,
+func NewBookFactory(title string, publisher *publishers.Publisher, pages int, language string, edition int, year int, isbn string,
 	owner string) (*Book, error) {
 	if err := ValidateBook(title, publisher, pages, language, edition, year, isbn, owner); err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func NewBookFactory(title string, publisher *entity.Publisher, pages int, langua
 	}, nil
 }
 
-func ValidateBook(title string, publisher *entity.Publisher, pages int, language string, edition int, year int,
+func ValidateBook(title string, publisher *publishers.Publisher, pages int, language string, edition int, year int,
 	isbn string, owner string) error {
 	if title == "" {
 		return ErrTitleRequired

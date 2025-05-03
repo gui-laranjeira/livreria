@@ -33,6 +33,7 @@ services:
       - "5432:5432"
     volumes:
       - ./sql/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./sql/populate.sql:/docker-entrypoint-initdb.d/populate.sql
     networks:
       - backend
 

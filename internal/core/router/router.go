@@ -5,9 +5,11 @@ import (
 	"github.com/gui-laranjeira/livreria/configs"
 	"github.com/gui-laranjeira/livreria/internal/books"
 	"github.com/gui-laranjeira/livreria/internal/core/infrastructure/database"
+	"github.com/gui-laranjeira/livreria/internal/publishers"
 )
 
 func SetupRoutes(r *gin.Engine) {
+	gin.SetMode(gin.DebugMode)
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 
@@ -33,5 +35,12 @@ func injectDependencies(r *gin.RouterGroup) {
 	bookService := books.NewBookServiceAdapter(bookRepository)
 	bookHandler := books.NewBookHandlerAdapter(bookService)
 
-	r.GET("/books/:id", bookHandler.FindByID)
+	publisherRepository := publishers.NewPublisherRepositoryAdapter(db)
+	publisherService := publishers.NewPublisherServiceAdapter(publisherRepository)
+	publisherHandler := publishers.NewPublisherHandlerAdapter(publisherService)
+
+	r.GET("/book/:id", bookHandler.FindByID)
+
+	r.GET("/publisher/:id", publisherHandler.FindByID)
+	r.POST("/publisher", publisherHandler.Create)
 }

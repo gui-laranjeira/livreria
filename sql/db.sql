@@ -1,5 +1,5 @@
 CREATE TABLE "books" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "title" varchar(100) NOT NULL,
   "publisher_id" INT NOT NULL,
   "pages" INT NOT NULL,
@@ -15,35 +15,35 @@ CREATE TABLE "books" (
 );
 
 CREATE TABLE "authors" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL
 );
 
 CREATE TABLE "publishers" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "country" varchar
 );
 
 CREATE TABLE "categories" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar
 );
 
 CREATE TABLE "subcategories" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
   "category_id" INT
 );
 
 CREATE TABLE "books_authors" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "book_id" INT,
   "author_id" INT
 );
 
 CREATE TABLE "books_categories" (
-  "id" INT PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "book_id" INT,
   "subcategory_id" INT
 );
