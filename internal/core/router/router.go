@@ -3,9 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gui-laranjeira/livreria/configs"
-	"github.com/gui-laranjeira/livreria/internal/books/handler"
-	"github.com/gui-laranjeira/livreria/internal/books/repository"
-	"github.com/gui-laranjeira/livreria/internal/books/service"
+	"github.com/gui-laranjeira/livreria/internal/books"
 	"github.com/gui-laranjeira/livreria/internal/core/infrastructure/database"
 )
 
@@ -31,9 +29,9 @@ func injectDependencies(r *gin.RouterGroup) {
 	if err != nil {
 		panic("failed to connect to database: " + err.Error())
 	}
-	bookRepository := repository.NewBookRepositoryAdapter(db)
-	bookService := service.NewBookServiceAdapter(bookRepository)
-	bookHandler := handler.NewBookHandlerAdapter(bookService)
+	bookRepository := books.NewBookRepositoryAdapter(db)
+	bookService := books.NewBookServiceAdapter(bookRepository)
+	bookHandler := books.NewBookHandlerAdapter(bookService)
 
 	r.GET("/books/:id", bookHandler.FindByID)
 }

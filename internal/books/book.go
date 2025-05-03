@@ -1,4 +1,4 @@
-package entity
+package books
 
 import (
 	"github.com/gui-laranjeira/livreria/internal/publishers/entity"

@@ -1,4 +1,4 @@
-package entity
+package books
 
 import "errors"
 

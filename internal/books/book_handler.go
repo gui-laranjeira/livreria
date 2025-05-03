@@ -1,18 +1,17 @@
-package handler
+package books
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gui-laranjeira/livreria/internal/books/entity"
 	"github.com/gui-laranjeira/livreria/pkg/web"
 	"net/http"
 	"strconv"
 )
 
 type BookHandlerAdapter struct {
-	bookService entity.BookServicePort
+	bookService BookServicePort
 }
 
-func NewBookHandlerAdapter(bookService entity.BookServicePort) *BookHandlerAdapter {
+func NewBookHandlerAdapter(bookService BookServicePort) *BookHandlerAdapter {
 	return &BookHandlerAdapter{
 		bookService: bookService,
 	}
