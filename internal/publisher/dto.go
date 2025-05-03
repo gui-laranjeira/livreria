@@ -1,4 +1,4 @@
-package publishers
+package publisher
 
 type CreatePublisherRequest struct {
 	Name    string `json:"name" validate:"required"`

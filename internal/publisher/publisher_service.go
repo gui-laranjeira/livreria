@@ -1,4 +1,4 @@
-package publishers
+package publisher
 
 import (
 	"log"
@@ -29,6 +29,15 @@ func (p *PublisherServiceAdapter) Create(publisher *Publisher) (*Publisher, erro
 
 func (p *PublisherServiceAdapter) FindByID(id int) (*Publisher, error) {
 	publisher, err := p.repo.FindByID(int64(id))
+	if err != nil {
+		return nil, err
+	}
+	return publisher, nil
+}
+
+func (p *PublisherServiceAdapter) FindByName(name string) (*Publisher, error) {
+	//Validate name
+	publisher, err := p.repo.FindByName(name)
 	if err != nil {
 		return nil, err
 	}

@@ -1,4 +1,4 @@
-package publishers
+package publisher
 
 type Publisher struct {
 	ID      int    `json:"id"`
@@ -9,11 +9,13 @@ type Publisher struct {
 type PublisherRepositoryPort interface {
 	Create(publisher *Publisher) (int64, error)
 	FindByID(id int64) (*Publisher, error)
+	FindByName(name string) (*Publisher, error)
 }
 
 type PublisherServicePort interface {
 	Create(publisher *Publisher) (*Publisher, error)
 	FindByID(id int) (*Publisher, error)
+	FindByName(name string) (*Publisher, error)
 }
 
 func NewPublisherFactory(name string, country string) (*Publisher, error) {

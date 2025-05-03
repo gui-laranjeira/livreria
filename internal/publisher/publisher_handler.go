@@ -1,4 +1,4 @@
-package publishers
+package publisher
 
 import (
 	"errors"
@@ -60,4 +60,23 @@ func (h *PublisherHandlerAdapter) Create(c *gin.Context) {
 		return
 	}
 	web.Success(c, http.StatusCreated, newPublisher)
+}
+
+func (h *PublisherHandlerAdapter) FindByName(c *gin.Context) {
+	name := c.Param("name")
+	if name == "" {
+		web.Error(c, http.StatusBadRequest, "invalid name provided: %v", "name must not be empty")
+		return
+	}
+
+	p, err := h.service.FindByName(name)
+	if err != nil {
+		if errors.Is(err, ErrPublisherNotFound) {
+			web.Error(c, http.StatusNotFound, "publisher not found: %v", err)
+			return
+		}
+		web.Error(c, http.StatusInternalServerError, "error finding publisher: %v", err)
+		return
+	}
+	web.Success(c, http.StatusOK, p)
 }

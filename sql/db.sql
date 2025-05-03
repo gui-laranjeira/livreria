@@ -3,7 +3,7 @@ CREATE TABLE "books" (
   "title" varchar(100) NOT NULL,
   "publisher_id" INT NOT NULL,
   "pages" INT NOT NULL,
-  "language" varchar(3),
+  "language" varchar(2),
   "edition" INT,
   "year" INT,
   "isbn" varchar(20),

@@ -5,7 +5,7 @@ import (
 	"github.com/gui-laranjeira/livreria/configs"
 	"github.com/gui-laranjeira/livreria/internal/books"
 	"github.com/gui-laranjeira/livreria/internal/core/infrastructure/database"
-	"github.com/gui-laranjeira/livreria/internal/publishers"
+	"github.com/gui-laranjeira/livreria/internal/publisher"
 )
 
 func SetupRoutes(r *gin.Engine) {
@@ -31,16 +31,19 @@ func injectDependencies(r *gin.RouterGroup) {
 	if err != nil {
 		panic("failed to connect to database: " + err.Error())
 	}
+
+	publisherRepository := publisher.NewPublisherRepositoryAdapter(db)
+	publisherService := publisher.NewPublisherServiceAdapter(publisherRepository)
+	publisherHandler := publisher.NewPublisherHandlerAdapter(publisherService)
+
 	bookRepository := books.NewBookRepositoryAdapter(db)
 	bookService := books.NewBookServiceAdapter(bookRepository)
-	bookHandler := books.NewBookHandlerAdapter(bookService)
-
-	publisherRepository := publishers.NewPublisherRepositoryAdapter(db)
-	publisherService := publishers.NewPublisherServiceAdapter(publisherRepository)
-	publisherHandler := publishers.NewPublisherHandlerAdapter(publisherService)
+	bookHandler := books.NewBookHandlerAdapter(bookService, publisherService)
 
 	r.GET("/book/:id", bookHandler.FindByID)
+	r.POST("/book", bookHandler.Create)
 
 	r.GET("/publisher/:id", publisherHandler.FindByID)
+	r.GET("/publisher/name/:name", publisherHandler.FindByName)
 	r.POST("/publisher", publisherHandler.Create)
 }
