@@ -9,7 +9,8 @@ services:
       - "8080:8080"
     restart: unless-stopped
     depends_on:
-      - postgres-db
+      postgres-db:
+        condition: service_healthy
     networks:
       - backend
 
@@ -17,7 +18,10 @@ services:
     image: postgres:16.0
     container_name: pg-container
     restart: always
+    healthcheck:
+      test: "exit 0"
     environment:
+      - POSTGRES_HOST=pg-container
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=livreria

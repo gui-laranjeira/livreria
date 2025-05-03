@@ -22,11 +22,12 @@ func SetupRoutes(r *gin.Engine) {
 }
 
 func injectDependencies(r *gin.RouterGroup) {
-	dbConfigs, err := configs.LoadDBConfig()
+	_, err := configs.LoadDBConfig()
 	if err != nil {
 		panic("failed to load config: " + err.Error())
 	}
-	db, err := database.OpenConnection(dbConfigs)
+
+	db, err := database.OpenConnection()
 	if err != nil {
 		panic("failed to connect to database: " + err.Error())
 	}
