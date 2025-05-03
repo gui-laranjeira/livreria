@@ -8,3 +8,6 @@ build-image:
 
 run-docker:
 	docker run -d --name $(IMAGE_NAME) -p 8080:8080 $(IMAGE_NAME):$(version)
+
+run:
+	docker compose down && docker compose up --build

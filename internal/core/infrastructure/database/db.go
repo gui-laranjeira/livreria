@@ -14,7 +14,7 @@ func OpenConnection(cfg *configs.DBConfig) (*sql.DB, error) {
 		"postgres://%v:%v@%v:%v/%v?sslmode=disable",
 		cfg.User,
 		cfg.Pass,
-		cfg.Container,
+		cfg.Host,
 		cfg.Port,
 		cfg.Database,
 	)
