@@ -7,7 +7,7 @@ RUN go mod tidy
 
 COPY . .
 
-RUN CGOOS=linux CGO_ENABLED=0 go build -v -o /app/api/ ./cmd/api/main.go
+RUN CGOOS=linux CGO_ENABLED=0 go build -v -o /app/api ./cmd/api/main.go
 
 EXPOSE 8080
 
@@ -18,4 +18,4 @@ WORKDIR /app
 COPY --from=builder --chmod=777 /app/api ./
 COPY --from=builder --chmod=777 /app/config.toml ./
 
-ENTRYPOINT ["/app/main"]
+ENTRYPOINT ["/app/api"]

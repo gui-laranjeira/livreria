@@ -1,0 +1,6 @@
+db:
+  container: postgres-db
+  port: 5432
+  database: livreria
+  user: postgres
+  pass: postgres
