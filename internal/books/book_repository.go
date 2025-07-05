@@ -17,6 +17,9 @@ func NewBookRepositoryAdapter(db *sql.DB) BookRepositoryPort {
 func (b *BookRepositoryAdapter) Create(book *Book) (int64, error) {
 	stmt, err := b.db.Prepare(`INSERT INTO books (title, publisher_id, pages, language, edition, year, isbn, owner, created_at, active)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`)
+	if err != nil {
+		return 0, err
+	}
 
 	var id int64
 	err = stmt.QueryRow(book.Title, book.PublisherID, book.Pages, book.Language, book.Edition, book.Year,

@@ -2,11 +2,12 @@ package books
 
 import (
 	"errors"
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gui-laranjeira/livreria/internal/publisher"
 	"github.com/gui-laranjeira/livreria/pkg/web"
-	"net/http"
-	"strconv"
 )
 
 type BookHandlerAdapter struct {
@@ -42,6 +43,10 @@ func (h *BookHandlerAdapter) Create(c *gin.Context) {
 	}
 
 	book, err := NewBookFactory(input.Title, p, input.Pages, input.Language, input.Edition, input.Year, input.ISBN, input.Owner)
+	if err != nil {
+		web.Error(c, http.StatusInternalServerError, "error creating book: %v", err)
+		return
+	}
 	b, err := h.bookService.Create(book)
 	if err != nil {
 		web.Error(c, http.StatusInternalServerError, "error creating book: %v", err)
