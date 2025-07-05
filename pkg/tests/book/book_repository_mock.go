@@ -9,48 +9,75 @@ type BookRepositoryMock struct {
 	mock.Mock
 }
 
-func (m *BookRepositoryMock) Update(book *books.Book) (int64, error) {
-	//TODO implement me
-	panic("implement me")
+func (m *BookRepositoryMock) Create(book *books.Book) (int64, error) {
+	args := m.Called(book)
+	return args.Get(0).(int64), args.Error(1)
+}
+
+func (m *BookRepositoryMock) Update(book *books.Book) (*books.Book, error) {
+	args := m.Called(book)
+	var r0 *books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).(*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindAll() ([]*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called()
+	var r0 []*books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).([]*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindByID(id int64) (*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(id)
+	var r0 *books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).(*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindByTitle(title string) ([]*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(title)
+	var r0 []*books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).([]*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindByPublisherID(publisherID int) ([]*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(publisherID)
+	var r0 []*books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).([]*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindByISBN(isbn string) ([]*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(isbn)
+	var r0 []*books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).([]*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) FindByOwner(owner string) ([]*books.Book, error) {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(owner)
+	var r0 []*books.Book
+	if args.Get(0) != nil {
+		r0 = args.Get(0).([]*books.Book)
+	}
+	return r0, args.Error(1)
 }
 
 func (m *BookRepositoryMock) DeleteByID(id int) error {
-	//TODO implement me
-	panic("implement me")
+	args := m.Called(id)
+	return args.Error(0)
 }
-
-func NewBookRepositoryMock() books.BookRepositoryPort {
-	return &BookRepositoryMock{}
-}
-
-func (m *BookRepositoryMock) Create(book *books.Book) (int64, error) {
