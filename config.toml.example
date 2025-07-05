@@ -1,0 +1,6 @@
+[db]
+host = "localhost"
+user = "postgres"
+pass = "postgres"
+name = "livreria"
+container = "pg-container"

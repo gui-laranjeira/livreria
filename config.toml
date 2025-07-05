@@ -1,0 +1,6 @@
+[db]
+host = "pg-container"
+user = "postgres"
+pass = "postgres"
+name = "livreria"
+port = 5432

@@ -2,23 +2,15 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
-	"github.com/gui-laranjeira/livreria/configs"
 	"log"
 
 	_ "github.com/lib/pq"
 )
 
-func OpenConnection(cfg *configs.DBConfig) (*sql.DB, error) {
-	connStr := fmt.Sprintf(
-		"postgres://%v:%v@%v:%v/%v?sslmode=disable",
-		cfg.User,
-		cfg.Pass,
-		cfg.Container,
-		cfg.Port,
-		cfg.Database,
-	)
+func OpenConnection() (*sql.DB, error) {
+	connStr := "postgres://postgres:postgres@pg-container:5432/livreria?sslmode=disable"
 
+	log.Printf("!!!!!!!!!!!!!!!!!connecting to %v", connStr)
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal("Error opening database connection:", err)

@@ -16,6 +16,6 @@ FROM gcr.io/distroless/static-debian11 as final
 
 WORKDIR /app
 COPY --from=builder --chmod=777 /app/api ./
-#COPY --from=builder --chmod=777 /app/config ./config
+COPY --from=builder --chmod=777 /app/config.yaml ./
 
 ENTRYPOINT ["/app/api"]

@@ -3,11 +3,11 @@ package configs
 import "github.com/spf13/viper"
 
 type DBConfig struct {
-	Container string `mapstructure:"container"`
-	Port      string `mapstructure:"port"`
-	Database  string `mapstructure:"database"`
-	User      string `mapstructure:"user"`
-	Pass      string `mapstructure:"pass"`
+	Port     string `mapstructure:"port"`
+	Database string `mapstructure:"database"`
+	User     string `mapstructure:"user"`
+	Pass     string `mapstructure:"pass"`
+	Host     string `mapstructure:"host"`
 }
 
 func init() {
@@ -16,9 +16,12 @@ func init() {
 	viper.SetDefault("db.database", "livreria")
 	viper.SetDefault("db.user", "postgres")
 	viper.SetDefault("db.pass", "postgres")
+	viper.SetDefault("db.host", "pg-container")
 }
+
 func LoadDBConfig() (*DBConfig, error) {
 	viper.SetConfigName("config")
+	viper.SetConfigType("toml")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("/app")
 	viper.AddConfigPath(".")

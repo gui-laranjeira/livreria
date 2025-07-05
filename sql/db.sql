@@ -1,11 +1,11 @@
 CREATE TABLE "books" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "title" varchar(100) NOT NULL,
-  "publisher_id" integer NOT NULL,
-  "pages" integer NOT NULL,
-  "language" varchar(3),
-  "edition" integer,
-  "year" integer,
+  "publisher_id" INT NOT NULL,
+  "pages" INT NOT NULL,
+  "language" varchar(2),
+  "edition" INT,
+  "year" INT,
   "isbn" varchar(20),
   "owner" varchar(50),
   "created_at" timestamp NOT NULL,
@@ -15,45 +15,51 @@ CREATE TABLE "books" (
 );
 
 CREATE TABLE "authors" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL
 );
 
 CREATE TABLE "publishers" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "country" varchar
 );
 
 CREATE TABLE "categories" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar
 );
 
 CREATE TABLE "subcategories" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" varchar,
-  "category_id" integer
+  "category_id" INT
 );
 
 CREATE TABLE "books_authors" (
-  "book_id" intenger,
-  "author_id" integer
+  "id" SERIAL PRIMARY KEY,
+  "book_id" INT,
+  "author_id" INT
 );
 
 CREATE TABLE "books_categories" (
-  "book_id" integer,
-  "subcategory_id" integer
+  "id" SERIAL PRIMARY KEY,
+  "book_id" INT,
+  "subcategory_id" INT
 );
 
 ALTER TABLE "books" ADD FOREIGN KEY ("publisher_id") REFERENCES "publishers" ("id");
 
 ALTER TABLE "subcategories" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
 
-ALTER TABLE "books" ADD FOREIGN KEY ("id") REFERENCES "books_authors" ("book_id");
+ALTER TABLE "books_authors"
+    ADD CONSTRAINT fk_book FOREIGN KEY ("book_id") REFERENCES "books" ("id");
 
-ALTER TABLE "authors" ADD FOREIGN KEY ("id") REFERENCES "books_authors" ("author_id");
+ALTER TABLE "books_authors"
+    ADD CONSTRAINT fk_author FOREIGN KEY ("author_id") REFERENCES "authors" ("id");
 
-ALTER TABLE "books" ADD FOREIGN KEY ("id") REFERENCES "books_categories" ("book_id");
+ALTER TABLE "books_categories"
+    ADD CONSTRAINT fk_book FOREIGN KEY ("book_id") REFERENCES "books" ("id");
 
-ALTER TABLE "subcategories" ADD FOREIGN KEY ("id") REFERENCES "books_categories" ("subcategory_id");
+ALTER TABLE "books_categories"
+    ADD CONSTRAINT fk_subcategory FOREIGN KEY ("subcategory_id") REFERENCES "subcategories" ("id");
