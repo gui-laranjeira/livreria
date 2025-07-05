@@ -12,21 +12,22 @@ type DBConfig struct {
 
 func init() {
 	viper.SetDefault("db.port", "5432")
-	viper.SetDefault("db.container", "localhost")
+	viper.SetDefault("db.container", "postgres-db")
 	viper.SetDefault("db.database", "livreria")
 	viper.SetDefault("db.user", "postgres")
 	viper.SetDefault("db.pass", "postgres")
 }
 func LoadDBConfig() (*DBConfig, error) {
 	viper.SetConfigName("config")
-	viper.SetConfigType("env")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("/app")
 	viper.AddConfigPath(".")
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, err
 	}
 
 	var cfg DBConfig
-	if err := viper.Unmarshal(&cfg); err != nil {
+	if err := viper.UnmarshalKey("db", &cfg); err != nil {
 		return nil, err
 	}
 	return &cfg, nil
