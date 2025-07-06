@@ -27,38 +27,33 @@ func (b *BookServiceAdapter) Create(book *Book) (*Book, error) {
 }
 
 func (b *BookServiceAdapter) Update(book *Book) (*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.Update(book)
 }
 
 func (b *BookServiceAdapter) FindAll() ([]*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.FindAll()
 }
 
 func (b *BookServiceAdapter) FindByID(id int) (*Book, error) {
-	book, err := b.repository.FindByID(int64(id))
-	if err != nil {
-		return nil, err
-	}
-
-	return book, nil
+	return b.repository.FindByID(int64(id))
 }
 
 func (b *BookServiceAdapter) FindByTitle(title string) ([]*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.FindByTitle(title)
 }
 
 func (b *BookServiceAdapter) FindByPublisherID(publisherID int) ([]*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.FindByPublisherID(publisherID)
 }
 
 func (b *BookServiceAdapter) FindByISBN(isbn string) ([]*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.FindByISBN(isbn)
 }
 
 func (b *BookServiceAdapter) FindByOwner(owner string) ([]*Book, error) {
-	panic("TODO: implement me")
+	return b.repository.FindByOwner(owner)
 }
 
 func (b *BookServiceAdapter) DeleteByID(id int) error {
-	panic("TODO: implement me")
+	return b.repository.DeleteByID(id)
 }
