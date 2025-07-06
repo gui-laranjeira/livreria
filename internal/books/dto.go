@@ -10,3 +10,14 @@ type CreateBookRequest struct {
 	ISBN      string `json:"isbn" binding:"required"`
 	Owner     string `json:"owner" binding:"required"`
 }
+
+type UpdateBookRequest struct {
+	Title     string `json:"title"`
+	Publisher string `json:"publisher"`
+	Pages     int    `json:"pages"`
+	Language  string `json:"language"`
+	Edition   int    `json:"edition"`
+	Year      int    `json:"year"`
+	ISBN      string `json:"isbn"`
+	Owner     string `json:"owner"`
+}

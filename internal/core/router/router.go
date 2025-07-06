@@ -41,7 +41,13 @@ func injectDependencies(r *gin.RouterGroup) {
 	bookHandler := books.NewBookHandlerAdapter(bookService, publisherService)
 
 	r.GET("/book/:id", bookHandler.FindByID)
+	r.GET("/book/title/:title", bookHandler.FindByTitle)
+	r.GET("/book/publisher/:publisher_id", bookHandler.FindByPublisherID)
+	r.GET("/book/isbn/:isbn", bookHandler.FindByISBN)
+	r.GET("/book/owner/:owner", bookHandler.FindByOwner)
 	r.POST("/book", bookHandler.Create)
+	r.PUT("/book/:id", bookHandler.Update)
+	r.DELETE("/book/:id", bookHandler.DeleteByID)
 
 	r.GET("/publisher/:id", publisherHandler.FindByID)
 	r.GET("/publisher/name/:name", publisherHandler.FindByName)
